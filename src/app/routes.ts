@@ -8,6 +8,7 @@ import{
 
 import { Routes } from '@angular/router'
 import { Error404Component } from './errors/404.component';
+import { CreateSessionComponent } from './events/event-details/create-session.component';
 
 export const appRoutes:Routes = [
     {path: 'events', component: EventListComponent, resolve: {events:EventListResolver}},
@@ -17,5 +18,6 @@ export const appRoutes:Routes = [
     canActivate: [EventRouteActivator]},
     {path: '', redirectTo: '/events', pathMatch: 'full'},
     {path:'404', component: Error404Component},
-    {path: 'user', loadChildren: './user/user.module#UserModule'}
+    {path: 'user', loadChildren: './user/user.module#UserModule'},
+    {path: 'events/session/new', component: CreateSessionComponent}
 ]
