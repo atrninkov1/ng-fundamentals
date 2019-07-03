@@ -18,7 +18,7 @@ import { ISession, restrictedWords } from '../shared';
 export class CreateSessionComponent implements OnInit{
 
     @Output() saveNewSession = new EventEmitter()
-    @Output() cancelSession = new EventEmitter()
+    @Output() cancelAddSession = new EventEmitter()
     name:FormControl;
     presenter: FormControl;
     duration: FormControl;
@@ -58,7 +58,7 @@ export class CreateSessionComponent implements OnInit{
     }
 
     cancel(){
-        this.cancelSession.emit()
+        this.cancelAddSession.emit()
     }
 
 }

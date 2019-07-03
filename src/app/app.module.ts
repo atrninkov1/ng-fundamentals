@@ -1,5 +1,5 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, Component } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser'
+import { NgModule, Component } from '@angular/core'
 
 import{
   EventListComponent, 
@@ -9,17 +9,21 @@ import{
   CreateEventComponent,
   EventRouteActivator,
   EventListResolver,
-  SessionListComponent
+  SessionListComponent,
+  DurationPipe
 } from './events/index'
-import { EventsAppComponent } from './events-app.component';
-import { NavBarComponent } from './nav/navbar.component';
-import { ToastrService } from './common/toastr.service';
-import { RouterModule } from '@angular/router';
-import { appRoutes } from './routes';
-import { Error404Component } from './errors/404.component';
-import { AuthService } from './user/auth.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CreateSessionComponent } from './events/event-details/create-session.component';
+import { EventsAppComponent } from './events-app.component'
+import { NavBarComponent } from './nav/navbar.component'
+import { TOASTR_TOKEN, Toastr, JQ_TOKEN, CollapsibleWellComponent, SimpleModalComponent, ModalTriggerDirective } from './common/index'
+import { RouterModule } from '@angular/router'
+import { appRoutes } from './routes'
+import { Error404Component } from './errors/404.component'
+import { AuthService } from './user/auth.service'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { CreateSessionComponent } from './events/event-details/create-session.component'
+
+let toastr:Toastr = window['toastr']
+let jQuery = window['$']
 
 @NgModule({
   imports: [
@@ -37,10 +41,15 @@ import { CreateSessionComponent } from './events/event-details/create-session.co
     CreateEventComponent,
     Error404Component,
     CreateSessionComponent,
-    SessionListComponent
+    SessionListComponent,
+    CollapsibleWellComponent,
+    DurationPipe,
+    SimpleModalComponent,
+    ModalTriggerDirective
   ],
   providers:[EventService, 
-             ToastrService, 
+             {provide: TOASTR_TOKEN, useValue: toastr}, 
+             {provide: JQ_TOKEN, useValue: jQuery}, 
              EventRouteActivator, 
              EventListResolver,
              AuthService,

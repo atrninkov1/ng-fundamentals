@@ -5,7 +5,7 @@ import { IEvent } from './shared';
     selector:'events-thumbnail',
     template:`
     <div [routerLink]="['/events',event.id]" class="well hoverwell thumbnail">
-        <h2>{{event?.name}}</h2>
+        <h2>{{event?.name | uppercase}}</h2>
         <div>Date: {{event?.date}}</div>
         <div>Time: {{event?.time}}</div>
         <div [ngClass]="getStartTimeClass()"
@@ -20,7 +20,7 @@ import { IEvent } from './shared';
                 Normal Start
             </span>
         </div>
-        <div>Price: \${{event?.price}}</div>
+        <div>Price: {{event?.price | currency:'USD'}}</div>
         <div [hidden]="!event?.location">
             <span>Location: {{event?.location?.address}}</span>
             <span class="pad-left">{{event?.location?.city}}, {{event?.location?.country}}</span>
