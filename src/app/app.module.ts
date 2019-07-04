@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser'
 import { NgModule, Component } from '@angular/core'
+import {HttpClientModule} from '@angular/common/http'
 
 import{
   EventListComponent, 
@@ -7,10 +8,13 @@ import{
   EventService, 
   EventDetailsComponent,
   CreateEventComponent,
-  EventRouteActivator,
   EventListResolver,
   SessionListComponent,
-  DurationPipe
+  DurationPipe,
+  UpvoteComponent,
+  VoterService,
+  LocationValidator,
+  EventResolver
 } from './events/index'
 import { EventsAppComponent } from './events-app.component'
 import { NavBarComponent } from './nav/navbar.component'
@@ -30,7 +34,8 @@ let jQuery = window['$']
     BrowserModule,
     RouterModule.forRoot(appRoutes),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   declarations: [
     EventsAppComponent,
@@ -45,14 +50,17 @@ let jQuery = window['$']
     CollapsibleWellComponent,
     DurationPipe,
     SimpleModalComponent,
-    ModalTriggerDirective
+    ModalTriggerDirective,
+    UpvoteComponent,
+    LocationValidator
   ],
   providers:[EventService, 
              {provide: TOASTR_TOKEN, useValue: toastr}, 
              {provide: JQ_TOKEN, useValue: jQuery}, 
-             EventRouteActivator, 
+             EventResolver, 
              EventListResolver,
              AuthService,
+             VoterService,
              {
                provide: 'canDeactivateCreateEvent', 
                useValue: checkDirtyState}],
