@@ -16,11 +16,15 @@ export class NavBarComponent{
 
     searchTerm:string = ""
     foundSessions: ISession[]
+    locations:string[]
 
     constructor(private auth:AuthService, private eventService:EventService){
+        console.log('constructor')
     }
 
     searchSessions(searchTerm){
         this.eventService.searchSessions(searchTerm).subscribe(sessions => {this.foundSessions = sessions})
+        this.eventService.getLocations().subscribe(locations => {this.locations = locations})
+        console.log(this.locations)
     }
 }

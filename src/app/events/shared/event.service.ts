@@ -15,6 +15,14 @@ export class EventService{
       return this.http.get<IEvent[]>('/api/events').pipe(catchError(this.handleError<IEvent[]>('getEvents', [])))
     }
 
+    getLocations():Observable<string[]>{
+      return this.http.post<string[]>('/api/locations', {})
+    }
+
+    exportServerData(){
+      this.http.post<IEvent>('/api/loadDB', {}).pipe(catchError(this.handleError<IEvent[]>('exportServerData', [])))
+    }
+
     getEvent(id:number):Observable<IEvent>{
       return this.http.get<IEvent>('/api/events/' + id).pipe(catchError(this.handleError<IEvent>('getEvent')))
     }

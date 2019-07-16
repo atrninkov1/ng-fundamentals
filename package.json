@@ -21,6 +21,8 @@
     "@angular/platform-browser-dynamic": "~7.1.0",
     "@angular/router": "~7.1.0",
     "core-js": "^2.5.4",
+    "msnodesqlv8": "^0.8.0",
+    "mssql": "^5.1.0",
     "ngf-bootstrap": "0.0.5",
     "ngf-server": "^1.0.2",
     "rxjs": "~6.3.3",

@@ -1,0 +1,59 @@
+IF NOT EXISTS(SELECT name FROM master.dbo.sysdatabases WHERE ('[' + name + ']' = 'EventsDatabase' OR name = 'EventsDatabase'))
+	BEGIN
+		CREATE DATABASE EventsDatabase
+	END
+
+	USE EventsDatabase
+
+	
+DROP TABLE Voters
+DROP TABLE Sessions
+DROP TABLE Users
+DROP TABLE Events
+DROP TABLE Locations
+
+CREATE TABLE Users(
+	id INT NOT NULL,
+	Username VARCHAR(200) NOT NULL UNIQUE,
+	PasswordHash VARCHAR(512) NOT NULL,
+	FirstName VARCHAR(50) NULL DEFAULT('Unspecified First Name'),
+	LastName VARCHAR(50) NULL DEFAULT('Unspecified Last Name'),
+	CONSTRAINT PK_Users PRIMARY KEY(id)
+)
+
+CREATE TABLE Locations(
+	Id INT NOT NULL IDENTITY(1, 1),
+	Address VARCHAR(200) NOT NULL,
+	City VARCHAR(50) NOT NULL,
+	Country VARCHAR(56) NOT NULL,
+	CONSTRAINT PK_Locations PRIMARY KEY(Id)
+)
+
+CREATE TABLE Events(
+	Id INT NOT NULL,
+	Name VARCHAR(100) NOT NULL,
+	Date DATE NOT NULL,
+	Time TIME NOT NULL,
+	Price MONEY NOT NULL,
+	ImageUrl VARCHAR(1000) NOT NULL,
+	LocationId INT NULL CONSTRAINT FK_Events_Locations FOREIGN KEY REFERENCES Locations(Id),
+	OnlineUrl VARCHAR(200) NULL,
+	CONSTRAINT PK_Events PRIMARY KEY(Id)
+)
+
+CREATE TABLE Sessions(
+	Id INT NOT NULL,
+	Name VARCHAR(100) NOT NULL,
+	Presenter VARCHAR(100) NOT NULL,
+	Duration INT NOT NULL,
+	Level VARCHAR(20) NOT NULL,
+	Abstract VARCHAR(1000) NOT NULL,
+	EventId INT NOT NULL,
+	CONSTRAINT PK_Sessions PRIMARY KEY(Id),
+	CONSTRAINT FK_Sessions_Events FOREIGN KEY (EventId) REFERENCES Events(Id)
+)
+
+CREATE TABLE Voters(
+	UserId INT NOT NULL CONSTRAINT FK_Voters_Users FOREIGN KEY REFERENCES Users(Id),
+	SessionId INT NOT NULL CONSTRAINT FK_Voters_Sessions FOREIGN KEY REFERENCES Sessions(Id)
+)
