@@ -28,5 +28,6 @@ export class EventListComponent implements OnInit{
     ngOnInit(){
         //events in this line matches events in the resolve portion of the route
         this.events = this.route.snapshot.data['events']
+        console.log(this.events)
     }
 }
